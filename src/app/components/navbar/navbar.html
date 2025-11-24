@@ -1,0 +1,53 @@
+<nav class="navbar">
+    <div class="navbar__content">
+        <div class="navbar__left">
+
+            <a routerLink="/inicio" class="navbar__brand">
+                LabSecure
+            </a>
+            <a *ngIf="!auth.isLoggedIn()" routerLink="/login" routerLinkActive="navbar__link--active"
+                class="navbar__link">
+                Login
+            </a>
+
+            <a *ngIf="!auth.isLoggedIn()" routerLink="/registro" routerLinkActive="navbar__link--active"
+                class="navbar__link">
+                Registro
+            </a>
+
+            <a *ngIf="!auth.isLoggedIn()" routerLink="/recuperar" routerLinkActive="navbar__link--active"
+                class="navbar__link">
+                Recuperar contraseña
+            </a>
+
+
+
+            <a *ngIf="auth.isCliente()" routerLink="/resultados" routerLinkActive="navbar__link--active"
+                class="navbar__link">
+                Resultados
+            </a>
+
+
+            <a *ngIf="auth.isAdmin()" routerLink="/perfil" routerLinkActive="navbar__link--active" class="navbar__link">
+                Administrar usuarios
+            </a>
+
+
+            <a *ngIf="auth.isTecnico()" routerLink="/inicio" routerLinkActive="navbar__link--active"
+                class="navbar__link">
+                Panel Técnico
+            </a>
+        </div>
+
+        <div class="navbar__right">
+            <span *ngIf="usuarioActual" class="navbar__user">
+                <span class="navbar__user-name">{{ usuarioActual.nombre }}</span>
+                <span class="navbar__user-role">{{ usuarioActual.rol }}</span>
+            </span>
+
+            <button *ngIf="usuarioActual" (click)="logout()" class="navbar__logout" type="button">
+                Cerrar sesión
+            </button>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,37 @@
+.inicio {
+  min-height: calc(100vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+}
+
+.inicio__card {
+  background: #ffffff;
+  padding: 2rem 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.15);
+  max-width: 520px;
+  width: 100%;
+}
+
+.inicio__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.8rem;
+}
+
+.inicio__subtitle {
+  margin: 0 0 1rem;
+  color: var(--color-muted);
+}
+
+.inicio__text {
+  margin-bottom: 1.5rem;
+  color: var(--color-muted);
+}
+
+.inicio__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}

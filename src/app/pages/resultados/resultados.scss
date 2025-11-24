@@ -1,0 +1,83 @@
+/* Contenedor principal usando el estilo app-main */
+.app-main {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1.5rem 3rem;
+}
+
+/* Título de la página */
+.page-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #111827; /* negro del proyecto */
+  margin-bottom: 0.25rem;
+}
+
+.page-subtitle {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Loading / Error */
+.loading-box,
+.error-box,
+.empty-box {
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+.loading-box {
+  background: var(--color-surface);
+  border-left: 4px solid var(--color-primary);
+}
+
+.error-box {
+  background: #fee2e2;
+  border-left: 4px solid var(--color-danger);
+  color: #991b1b;
+}
+
+.empty-box {
+  background: var(--color-surface);
+  border-left: 4px solid var(--color-muted);
+  color: var(--color-muted);
+}
+
+/* Tarjeta que contiene la tabla */
+.table-card {
+  background: var(--color-surface);
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* Tabla moderna */
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.results-table th {
+  text-align: left;
+  padding: 0.75rem;
+  background: var(--color-bg);
+  border-bottom: 2px solid #e5e7eb;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.results-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  color: var(--color-text);
+}
+
+/* Hover en filas */
+.results-table tbody tr:hover {
+  background-color: rgba(37, 99, 235, 0.06);
+  cursor: pointer;
+}

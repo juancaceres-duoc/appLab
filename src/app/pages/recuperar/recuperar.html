@@ -1,0 +1,29 @@
+<div class="auth-card" style="max-width: 420px; margin: 2rem auto;">
+    <h2 class="auth-title">Recuperar contraseña</h2>
+    <p class="auth-subtitle">
+        Ingresa tu correo registrado y te enviaremos instrucciones para recuperar tu contraseña.
+    </p>
+
+    <form [formGroup]="recuperarForm" (ngSubmit)="onSubmit()">
+        <div class="form-field">
+            <label class="form-label" for="email">Correo electrónico</label>
+            <input id="email" type="email" class="form-input" formControlName="email"
+                placeholder="ejemplo@laboratorio.cl" />
+            <div *ngIf="email?.touched && email?.invalid" class="error-text">
+                <span *ngIf="email?.errors?.['required']">El correo es obligatorio.</span>
+                <span *ngIf="email?.errors?.['email']">Debe ser un correo válido.</span>
+            </div>
+        </div>
+
+        <div *ngIf="mensajeExito" style="color: var(--color-accent); margin-bottom: 0.75rem;">
+            {{ mensajeExito }}
+        </div>
+        <div *ngIf="mensajeError" style="color: var(--color-danger); margin-bottom: 0.75rem;">
+            {{ mensajeError }}
+        </div>
+
+        <button type="submit" class="btn-primary" [disabled]="recuperarForm.invalid">
+            Enviar instrucciones
+        </button>
+    </form>
+</div>

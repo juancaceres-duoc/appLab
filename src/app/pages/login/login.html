@@ -1,0 +1,53 @@
+<div class="login-wrapper">
+
+    <div class="login-card">
+
+        <div class="login-image">
+            <img src="/login-bg.png" alt="background" />
+        </div>
+
+        <div class="login-form">
+            <h2>Iniciar sesión</h2>
+            <p class="form-subtitle">Accede con tu RUT y contraseña.</p>
+
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <label for="rut">RUT</label>
+                <input id="rut" class="input" type="text" placeholder="Ej: 12345678-9" formControlName="rut" />
+
+                <div *ngIf="rut?.touched && rut?.invalid" class="error-text">
+                    <span *ngIf="rut?.errors?.['required']">El RUT es obligatorio.</span>
+                    <span *ngIf="rut?.errors?.['pattern']">Formato inválido.</span>
+                </div>
+
+                <label for="password">Contraseña</label>
+
+                <div class="password-box">
+                    <input id="password" class="input" [type]="passwordVisible ? 'text' : 'password'"
+                        formControlName="password" placeholder="Tu contraseña" />
+                    <button type="button" class="show-btn" (click)="togglePasswordVisibility()">
+                        {{ passwordVisible ? 'Ocultar' : 'Ver' }}
+                    </button>
+                </div>
+
+                <div *ngIf="password?.touched && password?.invalid" class="error-text">
+                    <span *ngIf="password?.errors?.['required']">La contraseña es obligatoria.</span>
+                    <span *ngIf="password?.errors?.['minlength']">Mínimo 8 caracteres.</span>
+                </div>
+
+                <div *ngIf="mensajeError" class="error-text">
+                    {{ mensajeError }}
+                </div>
+
+                <button type="submit" class="btn-login" [disabled]="loginForm.invalid || cargando">
+                    {{ cargando ? 'Verificando...' : 'Ingresar' }}
+                </button>
+
+                <div class="extra-links">
+                    <a routerLink="/recuperar">¿Olvidaste tu contraseña?</a>
+                    <a routerLink="/registro">Crear cuenta nueva</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

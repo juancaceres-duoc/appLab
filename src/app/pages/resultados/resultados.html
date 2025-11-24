@@ -1,0 +1,47 @@
+<div class="app-main">
+
+  <h2 class="page-title">Resultados de Análisis</h2>
+  <p class="page-subtitle">
+    Aquí puedes revisar tus análisis registrados en el sistema.
+  </p>
+
+  <!-- Loading -->
+  <div *ngIf="cargando" class="loading-box">
+    Cargando análisis...
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="error-box">
+    {{ error }}
+  </div>
+
+  <!-- Tabla -->
+  <div *ngIf="!cargando && resultados.length > 0" class="table-card">
+    <table class="results-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Laboratorio</th>
+          <th>Nombre</th>
+          <th>Detalle</th>
+          <th>Unidad</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let r of resultados">
+          <td>{{ r.idAnalisis }}</td>
+          <td>{{ r.laboratorio }}</td>
+          <td>{{ r.nombreAnalisis }}</td>
+          <td>{{ r.detalleAnalisis }}</td>
+          <td>{{ r.unidad }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Sin resultados -->
+  <div *ngIf="!cargando && resultados.length === 0" class="empty-box">
+    No se encontraron análisis en tu historial.
+  </div>
+</div>

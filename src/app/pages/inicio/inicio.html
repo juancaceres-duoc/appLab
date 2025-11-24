@@ -1,0 +1,26 @@
+<div class="inicio">
+  <div class="inicio__card">
+    <h1 class="inicio__title">
+      Bienvenido a LabSecure
+    </h1>
+
+    <p class="inicio__subtitle" *ngIf="usuarioActual">
+      Hola <strong>{{ usuarioActual.nombre }}</strong>,
+      tu rol actual es <strong>{{ usuarioActual.rol }}</strong>.
+    </p>
+
+    <p class="inicio__text">
+      Usa el menú superior para navegar por el sistema.
+    </p>
+
+    <div class="inicio__actions">
+      <button class="btn-primary" routerLink="/analisis" *ngIf="!esAdmin()">
+        Ver mis análisis
+      </button>
+
+      <button class="btn-primary" routerLink="/perfil" *ngIf="esAdmin()">
+        Administrar usuarios
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<div class="perfil-page">
+    <h1 class="perfil-title">Administración de usuarios</h1>
+    <p class="perfil-subtitle">
+        Desde esta vista, el administrador puede revisar y actualizar los datos de los usuarios del sistema.
+    </p>
+
+    <div *ngIf="mensajeExito" class="alert alert--success">
+        {{ mensajeExito }}
+    </div>
+    <div *ngIf="mensajeError" class="alert alert--error">
+        {{ mensajeError }}
+    </div>
+
+    <div class="perfil-table-card">
+        <div class="perfil-table-header">
+            <h2>Listado de usuarios</h2>
+            <span *ngIf="cargandoLista" class="perfil-table-loading">Cargando...</span>
+        </div>
+
+        <div class="perfil-table-wrapper">
+            <table class="perfil-table">
+                <thead>
+                    <tr>
+                        <th>RUT</th>
+                        <th>Nombre</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th style="width: 120px;">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let u of usuarios">
+                        <td>{{ u.rut }}</td>
+                        <td>{{ u.nombre }}</td>
+                        <td>{{ u.correo }}</td>
+                        <td>{{ u.rol }}</td>
+                        <td>
+                            <button type="button" class="btn btn--sm" (click)="seleccionarUsuario(u)">
+                                Editar
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="!cargandoLista && usuarios.length === 0">
+                        <td colspan="5" class="perfil-table-empty">
+                            No hay usuarios registrados.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="seleccionado" class="perfil-edit-card">
+        <h2>Editar usuario</h2>
+        <p class="perfil-edit-subtitle">
+            Editando: <strong>{{ seleccionado.nombre }}</strong> ({{ seleccionado.rut }})
+        </p>
+
+        <form [formGroup]="editForm" (ngSubmit)="guardarCambios()">
+            <div class="form-row">
+                <div class="form-field">
+                    <label class="form-label" for="nombre">Nombre completo</label>
+                    <input id="nombre" type="text" class="form-input" formControlName="nombre" />
+                    <div *ngIf="nombre?.touched && nombre?.invalid" class="error-text">
+                        <span *ngIf="nombre?.errors?.['required']">
+                            El nombre es obligatorio.
+                        </span>
+                        <span *ngIf="nombre?.errors?.['minlength']">
+                            Debe tener al menos 3 caracteres.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label" for="correo">Correo</label>
+                    <input id="correo" type="email" class="form-input" formControlName="correo" />
+                    <div *ngIf="correo?.touched && correo?.invalid" class="error-text">
+                        <span *ngIf="correo?.errors?.['required']">
+                            El correo es obligatorio.
+                        </span>
+                        <span *ngIf="correo?.errors?.['email']">
+                            Debe ser un correo válido.
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label class="form-label" for="rol">Rol</label>
+                    <select id="rol" class="form-input" formControlName="rol">
+                        <option value="">Seleccione rol</option>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="TECNICO">TECNICO</option>
+                        <option value="CLIENTE">CLIENTE</option>
+                    </select>
+                    <div *ngIf="rol?.touched && rol?.invalid" class="error-text">
+                        El rol es obligatorio.
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label" for="password">
+                        Nueva contraseña (opcional)
+                    </label>
+                    <input id="password" type="password" class="form-input" formControlName="password"
+                        placeholder="Dejar en blanco para mantener la actual" />
+                    <div *ngIf="password?.touched && password?.invalid" class="error-text">
+                        <span *ngIf="password?.errors?.['minlength']">
+                            Debe tener al menos 8 caracteres.
+                        </span>
+                        <span *ngIf="password?.errors?.['maxlength']">
+                            No puede tener más de 50 caracteres.
+                        </span>
+                        <span *ngIf="password?.errors?.['pattern']">
+                            Debe tener al menos una mayúscula y un número.
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="perfil-edit-actions">
+                <button type="button" class="btn btn--ghost" (click)="cancelarEdicion()">
+                    Cancelar
+                </button>
+
+                <button type="submit" class="btn" [disabled]="editForm.invalid || guardando">
+                    {{ guardando ? 'Guardando...' : 'Guardar cambios' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
