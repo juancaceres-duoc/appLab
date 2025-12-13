@@ -112,7 +112,6 @@ describe('Perfil', () => {
 
     comp.seleccionado = { rut: '12345678-9', nombre: 'A', correo: 'a@a.cl', rol: 'ADMIN' } as any;
 
-    // Make invalid: required nombre/correo/rol
     comp.editForm.patchValue({ nombre: '', correo: 'bad', rol: '' });
     const markSpy = spyOn(comp.editForm, 'markAllAsTouched').and.callThrough();
 
@@ -142,7 +141,6 @@ describe('Perfil', () => {
     const call = usuarioServiceSpy.actualizarPorRut.calls.mostRecent().args;
     expect(call[0]).toBe(selected.rut);
 
-    // password should not be set when empty
     expect((call[1] as any).password).toBeUndefined();
 
     expect(comp.guardando).toBeFalse();

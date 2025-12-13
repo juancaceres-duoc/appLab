@@ -42,7 +42,6 @@ describe('Registro', () => {
     const fixture = TestBed.createComponent(Registro);
     const comp = fixture.componentInstance;
 
-    // Set valid-looking values but mismatch passwords
     comp.registroForm.patchValue({
       nombre: 'Juan',
       rut: '12345678-9',
@@ -51,7 +50,6 @@ describe('Registro', () => {
       confirmPassword: 'Aa1!aaab',
     });
 
-    // Trigger validation
     comp.registroForm.updateValueAndValidity();
 
     expect(comp.registroForm.errors).toEqual({ passwordsNoCoinciden: true } as any);

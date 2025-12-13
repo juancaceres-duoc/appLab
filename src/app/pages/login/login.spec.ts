@@ -56,7 +56,7 @@ describe('Login', () => {
 
   it('onSubmit should mark form touched and stop when invalid', () => {
     const markSpy = spyOn(component.loginForm, 'markAllAsTouched').and.callThrough();
-    component.loginForm.patchValue({ rut: '', password: '' }); // invalid
+    component.loginForm.patchValue({ rut: '', password: '' });
     component.onSubmit();
 
     expect(markSpy).toHaveBeenCalled();
@@ -86,7 +86,7 @@ describe('Login', () => {
       of({ rut: '12345678-9', password: 'Password1!', rol: 'admin' } as any),
     );
 
-    const logSpy = spyOn(console, 'log'); // covers console.log line
+    const logSpy = spyOn(console, 'log');
     component.onSubmit();
 
     expect(logSpy).toHaveBeenCalled();
@@ -141,7 +141,6 @@ describe('Login', () => {
   it('onSubmit should default navigate to /inicio when role is missing/undefined', () => {
     component.loginForm.patchValue({ rut: '12345678-9', password: 'Password1!' });
 
-    // rol undefined should hit the final else branch
     usuarioServiceSpy.obtenerPorRut.and.returnValue(
       of({ rut: '12345678-9', password: 'Password1!' } as any),
     );
