@@ -50,9 +50,7 @@ export class Registro {
             Validators.required,
             Validators.minLength(8),
             Validators.maxLength(20),
-            Validators.pattern(
-              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_\-+=\[{\]};:'",.<>/?\\|`~]).+$/
-            ),
+            Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/),
           ],
         ],
         confirmPassword: ['', [Validators.required]],
