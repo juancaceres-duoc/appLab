@@ -1,7 +1,7 @@
-<nav class="navbar">
+<nav class="navbar">    
     <div class="navbar__content">
         <div class="navbar__left">
-
+            
             <a routerLink="/inicio" class="navbar__brand">
                 LabSecure
             </a>
@@ -32,6 +32,9 @@
                 Administrar usuarios
             </a>
 
+            <a *ngIf="auth.isAdmin()" routerLink="/laboratorios" routerLinkActive="navbar__link--active" class="navbar__link">
+                Laboratorios
+            </a>
 
             <a *ngIf="auth.isTecnico()" routerLink="/inicio" routerLinkActive="navbar__link--active"
                 class="navbar__link">

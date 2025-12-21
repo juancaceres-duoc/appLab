@@ -8,6 +8,7 @@ import { Inicio } from './pages/inicio/inicio';
 import { Resultados } from './pages/resultados/resultados';
 import { AdminGuard } from './guards/admin-guard';
 import { ClienteGuard } from './guards/cliente-guard';
+import { Laboratorios } from './pages/laboratorios/laboratorios';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: 'inicio', component: Inicio },
     { path: 'resultados', component: Resultados, canActivate: [ClienteGuard] },
     { path: 'perfil', component: Perfil, canActivate: [AdminGuard] },
+    { path: 'laboratorios', component: Laboratorios, canActivate: [AdminGuard] },
     { path: '**', redirectTo: 'login' },
 ];

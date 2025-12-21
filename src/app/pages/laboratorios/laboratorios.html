@@ -1,0 +1,116 @@
+<div class="perfil-page">
+    <h1 class="perfil-title">Listado de laboratorios</h1>
+    <p class="perfil-subtitle">
+        Desde esta vista, el administrador puede revisar y administrar los laboratorios del sistema.
+    </p>
+
+    <div *ngIf="mensajeExito" class="alert alert--success">
+        {{ mensajeExito }}
+    </div>
+    <div *ngIf="mensajeError" class="alert alert--error">
+        {{ mensajeError }}
+    </div>
+
+    <div class="perfil-edit-card">
+        <h2>Agregar laboratorio</h2>
+        <p class="perfil-edit-subtitle">
+            Se creará automáticamente como <strong>Activo</strong>.
+        </p>
+
+        <form [formGroup]="crearForm" (ngSubmit)="crear()">
+            <div class="create-row">
+                <div class="form-field">
+                    <label class="form-label" for="nombreCrear">Nombre</label>
+                    <input id="nombreCrear" type="text" class="form-input" formControlName="nombre"
+                        placeholder="Ej: BioLab" />
+                    <div *ngIf="nombreCrear?.touched && nombreCrear?.invalid" class="error-text">
+                        <span *ngIf="nombreCrear?.errors?.['required']">El nombre es obligatorio.</span>
+                        <span *ngIf="nombreCrear?.errors?.['minlength']">Mínimo 2 caracteres.</span>
+                        <span *ngIf="nombreCrear?.errors?.['maxlength']">Máximo 100 caracteres.</span>
+                    </div>
+                </div>
+
+                <div class="create-actions">
+                    <button type="submit" class="btn-simple btn-primary" [disabled]="creando || crearForm.invalid">
+                        {{ creando ? 'Creando...' : 'Agregar' }}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tabla -->
+    <div class="perfil-table-card">
+        <div class="perfil-table-header">
+            <h2>Listado de laboratorios</h2>
+
+            <div class="perfil-table-actions">
+                <button type="button" class="btn-simple" (click)="toggleSoloActivos()">
+                    {{ soloActivos ? 'Mostrar todos' : 'Mostrar solo activos' }}
+                </button>
+                <span *ngIf="cargandoLista" class="perfil-table-loading">Cargando...</span>
+            </div>
+        </div>
+
+        <div class="perfil-table-wrapper">
+            <table class="perfil-table labs-table">
+                <!-- Esto fuerza columnas alineadas SIEMPRE -->
+                <colgroup>
+                    <col style="width: 90px;">
+                    <col>
+                    <col style="width: 140px;">
+                    <col style="width: 140px;">
+                    <col style="width: 140px;">
+                </colgroup>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th class="col-center">Estado</th>
+                        <th class="col-center">Activo</th>
+                        <th class="col-center">Eliminar</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let l of laboratorios">
+                        <td>{{ l.idLaboratorio }}</td>
+                        <td class="col-nombre">{{ l.nombre }}</td>
+
+                        <td class="col-center">
+                            <span class="estado-pill" [class.estado-pill--activo]="l.activo.toUpperCase() === 'S'"
+                                [class.estado-pill--inactivo]="l.activo.toUpperCase() === 'N'">
+                                {{ l.activo.toUpperCase() === 'S' ? 'Activo' : 'No activo' }}
+                            </span>
+                        </td>
+
+                        <td class="col-center">
+                            <label class="switch">
+                                <input type="checkbox" [id]="'lab-activo-' + l.idLaboratorio"
+                                    [checked]="l.activo.toUpperCase() === 'S'" (change)="toggleActivo(l, $event)"
+                                    [attr.aria-label]="'Activar o desactivar laboratorio ' + l.nombre" />
+                                <span class="slider" aria-hidden="true"></span>
+                                <span class="sr-only">
+                                    Activar o desactivar laboratorio {{ l.nombre }}
+                                </span>
+                            </label>
+                        </td>
+
+                        <td class="col-center">
+                            <button type="button" class="btn-simple btn-danger" (click)="eliminar(l)">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="!cargandoLista && laboratorios.length === 0">
+                        <td colspan="5" class="perfil-table-empty">
+                            No hay laboratorios para mostrar.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> 
